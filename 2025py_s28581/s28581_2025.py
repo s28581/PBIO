@@ -17,10 +17,7 @@ def insert_name(sequence, name):
 def calculate_statistics(sequence):
     """Oblicza statystyki sekwencji DNA"""
     # Filtrujemy tylko prawdziwe nukleotydy
-    # ORIGINAL:
-    # clean_sequence = ''.join([base for base in sequence if base in 'ACGT'])
-    # MODIFIED (ignorowanie liter imienia w obliczeniach):
-    clean_sequence = ''.join([base for base in sequence if base in 'ACGT' and base.upper() not in name.upper()])
+    clean_sequence = ''.join([base for base in sequence if base in 'ACGT'])
 
     total = len(clean_sequence)
     stats = {nucleotide: clean_sequence.count(nucleotide) / total * 100 for nucleotide in 'ACGT'}
@@ -56,7 +53,11 @@ while True:
 
 id_ = input("Podaj ID sekwencji: ")
 description = input("Podaj opis sekwencji: ")
-name = input("Podaj imię: ")
+# ORIGINAL:
+#name = input("Podaj imię: ")
+
+# MODIFIED (dodano implementacje imienia malymi literami, aby litery imienia nie wliczały sie w statystyki sekwencji):
+name = input("Podaj imię: ").lower()
 
 dna_sequence = generate_random_dna(length)
 final_sequence = insert_name(dna_sequence, name)
